@@ -219,6 +219,9 @@
 
 	<Enumeration Name="PixelFormat" NameSpace="Standard">
 		<DisplayName>Pixel format</DisplayName>
+		<EnumEntry Name="YUY2" NameSpace="Standard">
+			<Value>34603058</Value>
+		</EnumEntry>
 		<EnumEntry Name="BayerBG8" NameSpace="Standard">
 			<Value>17301515</Value>
 		</EnumEntry>

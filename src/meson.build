@@ -64,7 +64,8 @@ library_sources = [
 	'arvfakecamera.c',
 	'arvgvfakecamera.c',
 	'arvrealtime.c',
-	'arvxmlschema.c'
+	'arvxmlschema.c',
+	'v4l2-capture/v4l2-capture.c',
 ]
 
 library_no_introspection_sources = [
@@ -74,7 +75,8 @@ library_no_introspection_sources = [
 	'arvstr.c',
 	'arvgvcp.c',
 	'arvgvsp.c',
-	'arvwakeup.c'
+	'arvwakeup.c',
+	'v4l2-capture/v4l2-capture.h',
 ]
 
 library_headers = [
@@ -265,7 +267,8 @@ pkg.generate (aravis_library,
 	      requires: aravis_public_dependencies)
 
 progs = [[ 'arv-tool', 			'arvtool.c'],
-	 [ 'arv-fake-gv-camera', 	'arvfakegvcamera.c']]
+	 [ 'arv-fake-gv-camera', 	'arvfakegvcamera.c'],
+	 [ 'v4l2-capture',		'v4l2-capture/v4l2-capture.c']]
 
 foreach p: progs
 	executable ((p[0] + '-@0@').format (aravis_api_version),

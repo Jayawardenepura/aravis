@@ -43,10 +43,11 @@ gio_dep = dependency ('gio-2.0', required: true)
 xml2_dep = dependency ('libxml-2.0', required: true)
 libz_dep = dependency ('zlib', required: true)
 usb_dep = dependency ('libusb-1.0', required: get_option ('usb'))
+thread_dep = dependency('threads', required: true)
 
 libm = cc.find_library ('m', required: true)
 
-aravis_public_dependencies = [glib_dep, gobject_dep, gio_dep]
+aravis_public_dependencies = [glib_dep, gobject_dep, gio_dep, thread_dep]
 aravis_dependencies = [aravis_public_dependencies, xml2_dep, libz_dep, libm]
 if usb_dep.found()
   aravis_dependencies += usb_dep

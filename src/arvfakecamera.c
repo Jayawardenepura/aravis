@@ -30,6 +30,7 @@
  * arv-fake-gv-camera is a GV camera simulator based on this class.
  */
 
+#include <v4l2-capture/v4l2-capture.h>
 #include <arvfakecamera.h>
 #include <arvversion.h>
 #include <arvgc.h>
@@ -508,6 +509,35 @@ static struct {
   };
 
 static void
+v4l2_arv_camera_capture (ArvBuffer *buffer, void *fill_pattern_data,
+			guint32 exposure_time_us,
+			guint32 gain,
+			ArvPixelFormat pixel_format)
+{
+	struct v4l2_frame_buffer *fb;
+
+	if (buffer == NULL)
+		return;
+
+	fb = (struct v4l2_frame_buffer *)fill_pattern_data;
+
+	if (fb == NULL)
+		return;
+
+	switch (pixel_format)
+	{
+	case ARV_PIXEL_FORMAT_YUV_422_YUYV_PACKED:
+		if (v4l2_frame_ready == true) {
+			memcpy(buffer->priv->data, (unsigned char *)fb[fb->index].head, fb->len);
+			v4l2_frame_ready = false;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+static void
 arv_fake_camera_diagonal_ramp (ArvBuffer *buffer, void *fill_pattern_data,
 			       guint32 exposure_time_us,
 			       guint32 gain,
@@ -914,6 +944,7 @@ arv_fake_camera_new_full (const char *serial_number, const char *genicam_filenam
 {
 	ArvFakeCamera *fake_camera;
 	GError *error = NULL;
+	struct v4l2_frame_buffer *fb = NULL;
 	char *filename;
 	void *memory;
 	char *xml_url;
@@ -926,9 +957,11 @@ arv_fake_camera_new_full (const char *serial_number, const char *genicam_filenam
 
 	memory = g_malloc0 (ARV_FAKE_CAMERA_MEMORY_SIZE);
 
+	fb = v4l2_start_video_capturing(V4L2_DEFAULT_VIDEO_DEVICE);
+
 	g_mutex_init (&fake_camera->priv->fill_pattern_mutex);
-	fake_camera->priv->fill_pattern_callback = arv_fake_camera_diagonal_ramp;
-	fake_camera->priv->fill_pattern_data = NULL;
+	fake_camera->priv->fill_pattern_callback = v4l2_arv_camera_capture;
+	fake_camera->priv->fill_pattern_data = fb;
 
 	if (genicam_filename != NULL)
 		filename = g_strdup (genicam_filename);
@@ -992,7 +1025,8 @@ arv_fake_camera_new_full (const char *serial_number, const char *genicam_filenam
 					ARV_FAKE_CAMERA_BINNING_HORIZONTAL_DEFAULT);
 	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_BINNING_VERTICAL,
 					ARV_FAKE_CAMERA_BINNING_HORIZONTAL_DEFAULT);
-	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_PIXEL_FORMAT, ARV_PIXEL_FORMAT_MONO_8);
+	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_PIXEL_FORMAT, ARV_PIXEL_FORMAT_YUV_422_YUYV_PACKED);
+
 
 	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_ACQUISITION, 0);
 	arv_fake_camera_write_register (fake_camera, ARV_FAKE_CAMERA_REGISTER_ACQUISITION_MODE, 1);

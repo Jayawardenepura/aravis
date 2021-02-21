@@ -27,6 +27,7 @@
 #error "Only <arv.h> can be included directly."
 #endif
 
+#include <v4l2-capture/v4l2-capture.h>
 #include <arvbuffer.h>
 #include <gio/gio.h>
 
@@ -53,11 +54,11 @@ void arv_set_fake_camera_genicam_filename (const char *filename);
 
 #define ARV_FAKE_CAMERA_SENSOR_WIDTH			2048
 #define ARV_FAKE_CAMERA_SENSOR_HEIGHT			2048
-#define ARV_FAKE_CAMERA_WIDTH_DEFAULT			512
-#define ARV_FAKE_CAMERA_HEIGHT_DEFAULT			512
+#define ARV_FAKE_CAMERA_WIDTH_DEFAULT			V4L2_WIDTH_DEFAULT
+#define ARV_FAKE_CAMERA_HEIGHT_DEFAULT			V4L2_HEIGHT_DEFAULT
 #define ARV_FAKE_CAMERA_BINNING_HORIZONTAL_DEFAULT	1
 #define ARV_FAKE_CAMERA_BINNING_VERTICAL_DEFAULT	1
-#define ARV_FAKE_CAMERA_PIXEL_FORMAT_DEFAULT		ARV_PIXEL_FORMAT_MONO_8
+#define ARV_FAKE_CAMERA_PIXEL_FORMAT_DEFAULT		ARV_PIXEL_FORMAT_YUV_422_YUYV_PACKED
 #define ARV_FAKE_CAMERA_TEST_REGISTER_DEFAULT		0x12345678
 
 /* Acquisition control */
