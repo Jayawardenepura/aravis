@@ -1,0 +1,3 @@
+[submodule "src/v4l2-capture"]
+	path = src/v4l2-capture
+	url = git@github.com:Jayawardenepura/v4l2-capture.git
