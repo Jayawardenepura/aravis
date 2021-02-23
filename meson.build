@@ -59,4 +59,3 @@ else
 endif
 
 subdir ('src')
-subdir ('tests')
