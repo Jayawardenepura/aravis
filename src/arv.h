@@ -104,12 +104,6 @@
 #include <arvstr.h>
 #include <arvsystem.h>
 
-#if ARAVIS_HAS_USB
-#include <arvuvinterface.h>
-#include <arvuvdevice.h>
-#include <arvuvstream.h>
-#endif
-
 #include <arvversion.h>
 #include <arvzip.h>
 #include <arvxmlschema.h>

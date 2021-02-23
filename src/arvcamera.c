@@ -53,9 +53,6 @@
 #include <arvbuffer.h>
 #include <arvgc.h>
 #include <arvgvdevice.h>
-#if ARAVIS_HAS_USB
-#include <arvuvdevice.h>
-#endif
 #include <arvenums.h>
 #include <arvstr.h>
 
@@ -2589,17 +2586,9 @@ arv_camera_gv_set_packet_size_adjustment (ArvCamera *camera, ArvGvPacketSizeAdju
 gboolean
 arv_camera_is_uv_device	(ArvCamera *camera)
 {
-#if ARAVIS_HAS_USB
-	ArvCameraPrivate *priv = arv_camera_get_instance_private (camera);
-#endif
-
 	g_return_val_if_fail (ARV_IS_CAMERA (camera), FALSE);
 
-#if ARAVIS_HAS_USB
-	return ARV_IS_UV_DEVICE (priv->device);
-#else
 	return FALSE;
-#endif
 }
 
 /**
