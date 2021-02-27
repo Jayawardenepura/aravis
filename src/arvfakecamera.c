@@ -514,12 +514,7 @@ v4l2_arv_camera_capture (ArvBuffer *buffer, void *fill_pattern_data,
 			guint32 gain,
 			ArvPixelFormat pixel_format)
 {
-	guint32 width;
-	guint32 height;
 	struct v4l2_camera *c;
-
-	width = buffer->priv->width;
-	height = buffer->priv->height;
 
 	if (buffer == NULL)
 		return;
@@ -533,7 +528,7 @@ v4l2_arv_camera_capture (ArvBuffer *buffer, void *fill_pattern_data,
 	{
 	case ARV_PIXEL_FORMAT_YUV_422_YUYV_PACKED:
 		if (v4l2_frame_ready == true) {
-			memcpy(buffer->priv->data, (unsigned char *)c->fb[c->fb->index].mp_buff.head[0], width * height);
+			memcpy(buffer->priv->data, (unsigned char *)c->fb[c->fb->index].mp_buff.head[0], c->fb->bytes_used);
 			v4l2_frame_ready = false;
 		}
 		break;
