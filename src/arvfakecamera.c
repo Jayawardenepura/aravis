@@ -514,21 +514,26 @@ v4l2_arv_camera_capture (ArvBuffer *buffer, void *fill_pattern_data,
 			guint32 gain,
 			ArvPixelFormat pixel_format)
 {
-	struct v4l2_frame_buffer *fb;
+	guint32 width;
+	guint32 height;
+	struct v4l2_camera *c;
+
+	width = buffer->priv->width;
+	height = buffer->priv->height;
 
 	if (buffer == NULL)
 		return;
 
-	fb = (struct v4l2_frame_buffer *)fill_pattern_data;
+	c = (struct v4l2_camera *)fill_pattern_data;
 
-	if (fb == NULL)
+	if (c == NULL)
 		return;
 
 	switch (pixel_format)
 	{
 	case ARV_PIXEL_FORMAT_YUV_422_YUYV_PACKED:
 		if (v4l2_frame_ready == true) {
-			memcpy(buffer->priv->data, (unsigned char *)fb[fb->index].head, fb->len);
+			memcpy(buffer->priv->data, (unsigned char *)c->fb[c->fb->index].mp_buff.head[0], width * height);
 			v4l2_frame_ready = false;
 		}
 		break;
@@ -944,7 +949,7 @@ arv_fake_camera_new_full (const char *serial_number, const char *genicam_filenam
 {
 	ArvFakeCamera *fake_camera;
 	GError *error = NULL;
-	struct v4l2_frame_buffer *fb = NULL;
+	struct v4l2_camera *c = NULL;
 	char *filename;
 	void *memory;
 	char *xml_url;
@@ -957,11 +962,11 @@ arv_fake_camera_new_full (const char *serial_number, const char *genicam_filenam
 
 	memory = g_malloc0 (ARV_FAKE_CAMERA_MEMORY_SIZE);
 
-	fb = v4l2_start_video_capturing(V4L2_DEFAULT_VIDEO_DEVICE);
+	c = v4l2_start_video_capturing(V4L2_DEFAULT_VIDEO_DEVICE);
 
 	g_mutex_init (&fake_camera->priv->fill_pattern_mutex);
 	fake_camera->priv->fill_pattern_callback = v4l2_arv_camera_capture;
-	fake_camera->priv->fill_pattern_data = fb;
+	fake_camera->priv->fill_pattern_data = c;
 
 	if (genicam_filename != NULL)
 		filename = g_strdup (genicam_filename);
