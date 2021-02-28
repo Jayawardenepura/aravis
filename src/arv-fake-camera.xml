@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RegisterDescription
-	ModelName="Fake"
-	VendorName="Aravis"
+	ModelName="TrueLand"
+	VendorName="Xinity"
 	StandardNameSpace="None"
 	SchemaMajorVersion="1"
 	SchemaMinorVersion="0"

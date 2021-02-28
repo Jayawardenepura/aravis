@@ -39,6 +39,9 @@ void arv_set_fake_camera_genicam_filename (const char *filename);
 
 /* To keep in sync with arv-fake-camera.xml */
 
+#define ARV_FAKE_CAMERA_VENDOR				"Xinity"
+#define ARV_FAKE_CAMERA_MODEL				"TrueLand"
+
 /* Image format control */
 
 #define ARV_FAKE_CAMERA_REGISTER_SENSOR_WIDTH		0x11c
