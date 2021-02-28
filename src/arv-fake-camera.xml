@@ -134,7 +134,7 @@
 	<Integer Name="Width" NameSpace="Standard">
 		<Description>Width of image, in pixels.</Description>
 		<pValue>WidthRegister</pValue>
-		<Min>1</Min>
+		<pMin>SensorWidth</pMin>
 		<pMax>SensorWidth</pMax>
 		<Inc>1</Inc>
 	</Integer>
@@ -151,7 +151,7 @@
 	<Integer Name="Height" NameSpace="Standard">
 		<Description>Height of image, in pixels.</Description>
 		<pValue>HeightRegister</pValue>
-		<Min>1</Min>
+		<pMin>SensorHeight</pMin>
 		<pMax>SensorHeight</pMax>
 		<Inc>1</Inc>
 	</Integer>
