@@ -80,8 +80,6 @@
 	<Category Name="ImageFormatControl" NameSpace="Standard">
 		<pFeature>SensorHeight</pFeature>
 		<pFeature>SensorWidth</pFeature>
-		<pFeature>OffsetX</pFeature>
-		<pFeature>OffsetY</pFeature>
 		<pFeature>Width</pFeature>
 		<pFeature>Height</pFeature>
 		<pFeature>BinningHorizontal</pFeature>
@@ -117,14 +115,6 @@
 		<Endianess>BigEndian</Endianess>
 	</IntReg>
 
-	<Integer Name="OffsetX" NameSpace="Standard">
-		<Description>X offset of image, in pixels.</Description>
-		<pValue>OffsetXRegister</pValue>
-		<Min>0</Min>
-		<pMax>SensorWidth</pMax>
-		<Inc>1</Inc>
-	</Integer>
-
 	<IntReg Name="OffsetXRegister" NameSpace="Custom">
 		<Address>0x130</Address>
 		<Length>4</Length>
@@ -133,14 +123,6 @@
 		<Sign>Unsigned</Sign>
 		<Endianess>BigEndian</Endianess>
 	</IntReg>
-
-	<Integer Name="OffsetY" NameSpace="Standard">
-		<Description>Y offset of image, in pixels.</Description>
-		<pValue>OffsetYRegister</pValue>
-		<Min>0</Min>
-		<pMax>SensorHeight</pMax>
-		<Inc>1</Inc>
-	</Integer>
 
 	<IntReg Name="OffsetYRegister" NameSpace="Custom">
 		<Address>0x134</Address>
