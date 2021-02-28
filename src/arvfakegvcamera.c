@@ -23,6 +23,7 @@
 #include <arv.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <v4l2-capture/v4l2-capture.h>
 
 static gboolean cancel = FALSE;
 
@@ -30,6 +31,7 @@ static void
 set_cancel (int signal)
 {
        cancel = TRUE;
+       v4l2_is_polling = false;
 }
 
 static char *arv_option_interface_name = NULL;
