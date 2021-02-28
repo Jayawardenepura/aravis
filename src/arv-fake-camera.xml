@@ -315,13 +315,6 @@
 		<Endianess>BigEndian</Endianess>
 	</IntReg>
 
-	<Float Name="ExposureTimeAbs" NameSpace="Standard">
-		<Description>Exposure duration, in microseconds.</Description>
-		<pValue>ExposureTimeAbsConverter</pValue>
-		<Min>10.0</Min>
-		<Max>10000000.0</Max>
-	</Float>
-
 	<Converter Name="ExposureTimeAbsConverter" NameSpace="Custom">
 		<FormulaTo>FROM</FormulaTo>
 		<FormulaFrom>TO</FormulaFrom>
