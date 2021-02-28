@@ -170,27 +170,6 @@
 		<EnumEntry Name="YUY2" NameSpace="Standard">
 			<Value>34603058</Value>
 		</EnumEntry>
-		<EnumEntry Name="BayerBG8" NameSpace="Standard">
-			<Value>17301515</Value>
-		</EnumEntry>
-		<EnumEntry Name="BayerGB8" NameSpace="Standard">
-			<Value>17301514</Value>
-		</EnumEntry>
-		<EnumEntry Name="BayerGR8" NameSpace="Standard">
-			<Value>17301512</Value>
-		</EnumEntry>
-		<EnumEntry Name="BayerRG8" NameSpace="Standard">
-			<Value>17301513</Value>
-		</EnumEntry>
-		<EnumEntry Name="Mono8" NameSpace="Standard">
-			<Value>17301505</Value>
-		</EnumEntry>
-		<EnumEntry Name="RGB8" NameSpace="Standard">
-			<Value>35127316</Value>
-		</EnumEntry>
-		<EnumEntry Name="Mono16" NameSpace="Standard">
-			<Value>17825799</Value>
-		</EnumEntry>
 		<pValue>PixelFormatRegister</pValue>
 	</Enumeration>
 
