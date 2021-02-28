@@ -235,23 +235,6 @@
 		<Endianess>BigEndian</Endianess>
 	</IntReg>
 
-	<Float Name="AcquisitionFrameRate">
-	  <pValue>AcquisitionFrameRateConverter</pValue>
-	</Float>
-
-	<Converter Name="AcquisitionFrameRateConverter">
-		<Description>Frame rate, in frames per second.</Description>
-		<FormulaTo>(1000000 / FROM)</FormulaTo>
-		<FormulaFrom>(1000000 / TO)</FormulaFrom>
-		<pValue>AcquisitionFramePeriod</pValue>
-	</Converter>
-
-	<Integer Name="AcquisitionFramePeriod" NameSpace="Custom">
-	  <pValue>AcquisitionFramePeriodRegister</pValue>
-	  <Min>1000</Min>
-	  <Max>10000000</Max>
-	</Integer>
-
 	<IntReg Name="AcquisitionFramePeriodRegister" NameSpace="Custom">
 		<Address>0x138</Address>
 		<Length>4</Length>
