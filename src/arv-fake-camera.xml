@@ -332,18 +332,6 @@
 
 	<!-- Analog control -->
 
-	<Category Name="AnalogControl" NameSpace="Custom">
-		<pFeature>GainRaw</pFeature>
-		<pFeature>GainAuto</pFeature>
-	</Category>
-
-	<Integer Name="GainRaw" NameSpace="Standard">
-		<Description>Raw gain.</Description>
-		<pValue>GainRawRegister</pValue>
-		<Min>0</Min>
-		<Max>10</Max>
-	</Integer>
-
 	<IntReg Name="GainRawRegister" NameSpace="Custom">
 		<Address>0x110</Address>
 		<Length>4</Length>
@@ -352,20 +340,6 @@
 		<Sign>Unsigned</Sign>
 		<Endianess>BigEndian</Endianess>
 	</IntReg>
-
-	<Enumeration Name="GainAuto" NameSpace="Standard">
-		<Description>Automatic gain mode.</Description>
-		<EnumEntry Name="Off" NameSpace="Standard">
-			<Value>1</Value>
-		</EnumEntry>
-		<EnumEntry Name="Once" NameSpace="Standard">
-			<Value>3</Value>
-		</EnumEntry>
-		<EnumEntry Name="Continuous" NameSpace="Standard">
-			<Value>2</Value>
-		</EnumEntry>
-		<pValue>GainAutoRegister</pValue>
-	</Enumeration>
 
 	<IntReg Name="GainAutoRegister" NameSpace="Custom">
 		<Address>0x114</Address>
