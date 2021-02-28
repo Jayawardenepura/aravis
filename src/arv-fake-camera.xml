@@ -82,8 +82,6 @@
 		<pFeature>SensorWidth</pFeature>
 		<pFeature>Width</pFeature>
 		<pFeature>Height</pFeature>
-		<pFeature>BinningHorizontal</pFeature>
-		<pFeature>BinningVertical</pFeature>
 		<pFeature>PixelFormat</pFeature>
 	</Category>
 
@@ -160,38 +158,6 @@
 
 	<IntReg Name="HeightRegister" NameSpace="Custom">
 		<Address>0x104</Address>
-		<Length>4</Length>
-		<AccessMode>RW</AccessMode>
-		<pPort>Device</pPort>
-		<Sign>Unsigned</Sign>
-		<Endianess>BigEndian</Endianess>
-	</IntReg>
-
-	<Integer Name="BinningHorizontal" NameSpace="Standard">
-		<Description>Binning in horizontal direction.</Description>
-		<pValue>BinningHorizontalRegister</pValue>
-		<Min>1</Min>
-		<Max>16</Max>
-	</Integer>
-
-	<IntReg Name="BinningHorizontalRegister" NameSpace="Custom">
-		<Address>0x108</Address>
-		<Length>4</Length>
-		<AccessMode>RW</AccessMode>
-		<pPort>Device</pPort>
-		<Sign>Unsigned</Sign>
-		<Endianess>BigEndian</Endianess>
-	</IntReg>
-
-	<Integer Name="BinningVertical" NameSpace="Standard">
-		<Description>Binning in vertical direction.</Description>
-		<pValue>BinningVerticalRegister</pValue>
-		<Min>1</Min>
-		<Max>16</Max>
-	</Integer>
-
-	<IntReg Name="BinningVerticalRegister" NameSpace="Custom">
-		<Address>0x10c</Address>
 		<Length>4</Length>
 		<AccessMode>RW</AccessMode>
 		<pPort>Device</pPort>
