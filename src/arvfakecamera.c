@@ -524,12 +524,22 @@ v4l2_arv_camera_capture (ArvBuffer *buffer, void *fill_pattern_data,
 	if (c == NULL)
 		return;
 
+	struct v4l2_frame_buffer *fb = c->fb;
 	switch (pixel_format)
 	{
 	case ARV_PIXEL_FORMAT_YUV_422_YUYV_PACKED:
 		if (v4l2_frame_ready == true) {
-			memcpy(buffer->priv->data, (unsigned char *)c->fb[c->fb->index].mp_buff.head[0], c->fb->bytes_used);
 			v4l2_frame_ready = false;
+			switch(c->params.type) {
+			case V4L2_BUF_TYPE_VIDEO_CAPTURE:
+				memcpy(buffer->priv->data, fb->f.head[0], fb->bytes_used);
+			break;
+			case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+				memcpy(buffer->priv->data, fb->f.head[0], c->params.width * c->params.height);
+			break;
+			default:
+			break;
+			}
 		}
 		break;
 	default:
