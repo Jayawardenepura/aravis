@@ -83,13 +83,12 @@ arv_buffer_new_full (size_t size, void *preallocated, void *user_data, GDestroyN
 	buffer->priv->chunk_endianness = G_BIG_ENDIAN;
 	buffer->priv->payload_type = ARV_BUFFER_PAYLOAD_TYPE_UNKNOWN;
 
-	if (preallocated != NULL) {
-		buffer->priv->is_preallocated = TRUE;
-		buffer->priv->data = preallocated;
-	} else {
-		buffer->priv->is_preallocated = FALSE;
-		buffer->priv->data = g_malloc (size);
-	}
+	/*
+	 * The workaround: we don't check preallocated to assign already
+	 * allocated by V4L2 pointer to frame buffer
+	 * */
+	buffer->priv->is_preallocated = TRUE;
+	buffer->priv->data = preallocated;
 
 	return buffer;
 }

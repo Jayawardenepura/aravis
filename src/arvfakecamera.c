@@ -509,42 +509,30 @@ static struct {
   };
 
 static void
-v4l2_arv_camera_capture (ArvBuffer *buffer, void *fill_pattern_data,
+v4l2_arv_camera_capture(ArvBuffer *buffer, void *fill_pattern_data,
 			guint32 exposure_time_us,
 			guint32 gain,
 			ArvPixelFormat pixel_format)
 {
 	struct v4l2_camera *c;
 
-	if (buffer == NULL)
-		return;
-
 	c = (struct v4l2_camera *)fill_pattern_data;
 
-	if (c == NULL)
+	/* Frame is not ready to be fetched */
+	if (c->v4l2_is_frame_ready == false)
 		return;
 
-	struct v4l2_frame_buffer *fb = c->fb;
-	switch (pixel_format)
-	{
-	case ARV_PIXEL_FORMAT_YUV_422_YUYV_PACKED:
-		if (v4l2_frame_ready == true) {
-			v4l2_frame_ready = false;
-			switch(c->params.type) {
-			case V4L2_BUF_TYPE_VIDEO_CAPTURE:
-				memcpy(buffer->priv->data, fb->f.head[0], fb->bytes_used);
-			break;
-			case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
-				memcpy(buffer->priv->data, fb->f.head[0], c->params.width * c->params.height);
-			break;
-			default:
-			break;
-			}
-		}
+	switch(c->params.type) {
+		case V4L2_BUF_TYPE_VIDEO_CAPTURE:
+			buffer->priv->data = c->fb[c->fb->index].f.head[0];
 		break;
-	default:
+		case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+			/* We don't support MPLANE */
+		break;
+		default:
 		break;
 	}
+	c->v4l2_is_frame_ready = false;
 }
 
 static void
@@ -963,11 +951,13 @@ arv_fake_camera_new_full (const char *serial_number, const char *genicam_filenam
 	g_return_val_if_fail (*serial_number != '\0', NULL);
 	g_return_val_if_fail (strlen (serial_number) < ARV_GVBS_SERIAL_NUMBER_SIZE, NULL);
 
+	c = v4l2_start_video_capturing(NULL, 0 ,0 ,0, 0, 0);
+	if (c == NULL)
+		return NULL;
+
 	fake_camera = g_object_new (ARV_TYPE_FAKE_CAMERA, NULL);
 
 	memory = g_malloc0 (ARV_FAKE_CAMERA_MEMORY_SIZE);
-
-	c = v4l2_start_video_capturing(V4L2_DEFAULT_VIDEO_DEVICE);
 
 	g_mutex_init (&fake_camera->priv->fill_pattern_mutex);
 	fake_camera->priv->fill_pattern_callback = v4l2_arv_camera_capture;
